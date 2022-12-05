@@ -1,4 +1,4 @@
-package main
+package cotent
 
 import (
 	"encoding/json"

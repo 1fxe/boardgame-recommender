@@ -34,3 +34,15 @@ Collaborative filtering is a method of recommending items to users based on the 
 In collaborative filtering, a system first gathers information about the actions of other users. This can include things like what items they have viewed or purchased, what ratings they have given to items, and any other relevant actions. The system then uses this information to identify users who have similar actions and preferences, and recommends items to a given user based on what similar users have liked or purchased in the past.
 
 One advantage of collaborative filtering is that it can make recommendations even for users who have not provided much information about their preferences. By using the actions of other users, the system can infer what a given user might like, even if they have not explicitly stated their preferences. Additionally, because the recommendations are based on the actions of other users, they can be highly personalized, taking into account the unique preferences and interests of each individual user.
+
+### Cosine Similarity
+Cosine similarity is a measure of similarity between two non-zero vectors of an inner product space that measures the cosine of the angle between them. It is defined as the dot product of the two vectors divided by the product of their magnitudes.
+
+Cosine similarity is often used in natural language processing and information retrieval to compare the similarity of two documents or sets of words. It is particularly useful because it is not affected by the magnitude of the vectors, only by their direction. This means that it can be used to compare vectors that have different lengths or magnitudes, as long as they are in the same inner product space.
+
+Essentially the lower the angle between two vectors, the higher the cosine similarity between them. 
+
+
+![img.png](.github/img.png)
+
+[Source](https://www.oreilly.com/library/view/statistics-for-machine/9781788295758/eb9cd609-e44a-40a2-9c3a-f16fc4f5289a.xhtml)
