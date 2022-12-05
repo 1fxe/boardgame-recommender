@@ -22,19 +22,19 @@ type User struct {
 }
 
 type Recommendation struct {
-	Game  *BoardGame
+	Game  BoardGame
 	Score float64
 }
 
 // BoardGameRecommender is a collaborative filtering-based board game recommender
 type BoardGameRecommender struct {
-	BoardGames map[int]*BoardGame // map of game ID to game
-	Users      map[int]*User      // map of user ID to user
+	BoardGames map[int]BoardGame // map of game ID to game
+	Users      map[int]User      // map of user ID to user
 }
 
 // AddGame adds a new game to the Recommender
 func (recommender *BoardGameRecommender) AddGame(id int, name string) {
-	recommender.BoardGames[id] = &BoardGame{
+	recommender.BoardGames[id] = BoardGame{
 		ID:   id,
 		Name: name,
 	}
@@ -42,14 +42,14 @@ func (recommender *BoardGameRecommender) AddGame(id int, name string) {
 
 // AddUser adds a new user to the Recommender
 func (recommender *BoardGameRecommender) AddUser(id int, ratings map[int]int) {
-	recommender.Users[id] = &User{
+	recommender.Users[id] = User{
 		ID:      id,
 		Ratings: ratings,
 	}
 }
 
 // Recommendations calculates and returns recommendations for a given user
-func (recommender *BoardGameRecommender) Recommendations(userID int) []*Recommendation {
+func (recommender *BoardGameRecommender) Recommendations(userID int) []Recommendation {
 	// Calculate similarity between the target user and all other users
 	similarities := make(map[int]float64)
 	user := recommender.Users[userID]
@@ -77,14 +77,14 @@ func (recommender *BoardGameRecommender) Recommendations(userID int) []*Recommen
 	sortedIDs = sortedIDs[:25]
 
 	// Recommend games that the most similar users have rated highly
-	var recommendations []*Recommendation
+	var recommendations []Recommendation
 	for _, id := range sortedIDs {
 		otherUser := recommender.Users[id]
 		for gameID, rating := range otherUser.Ratings {
 			// If the User has not previously rated this game, and the other user rated it highly, recommend it
 			if user.Ratings[gameID] == 0 && rating > 3 {
 				// TODO ignore duplicate recommendations
-				recommendations = append(recommendations, &Recommendation{
+				recommendations = append(recommendations, Recommendation{
 					recommender.BoardGames[gameID],
 					similarities[id],
 				})
@@ -118,8 +118,8 @@ func cosineSimilarity(userRatings, otherUserRatings map[int]int) float64 {
 func main() {
 	// Create a new recommender
 	recommender := &BoardGameRecommender{
-		BoardGames: make(map[int]*BoardGame),
-		Users:      make(map[int]*User),
+		BoardGames: make(map[int]BoardGame),
+		Users:      make(map[int]User),
 	}
 
 	// Add some games
