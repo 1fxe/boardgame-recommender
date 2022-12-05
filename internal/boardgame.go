@@ -22,5 +22,5 @@ type BoardGame struct {
 	NoPlayers      Range          `json:"noPlayers"`
 	PlayTime       Range          `json:"playTime"`
 	MinAge         int            `json:"age"`
-	Characteristic Characteristic `json:"characteristic,omitempty"`
+	Characteristic Characteristic `json:"characteristic"`
 }

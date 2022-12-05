@@ -1,11 +1,33 @@
-# Content-based Filtering
+# BoardGame Recommender
+
+## Content-based Filtering
 Content-based filtering is a method of recommending items to users based on the characteristics of the items themselves. This is in contrast to other methods of recommendation, such as collaborative filtering, which use the actions of other users to make recommendations.
 
 In content-based filtering, a system first gathers information about the items that are being recommended. This can include things like the category or genre of the item, the words used in the item's description, and any other relevant characteristics. The system then uses this information to identify items that are similar to each other, and recommends those items to users who have expressed an interest in similar items in the past.
 
 One advantage of content-based filtering is that it does not require a lot of data about the preferences of individual users. Instead, it can make recommendations based on the inherent characteristics of the items themselves, which makes it possible to make recommendations even for users who have not provided much information about their preferences. Additionally, because the recommendations are based on the characteristics of the items themselves, they can be personalized to the individual user, taking into account their unique preferences and interests.
 
-# Collaborative Filtering
+```go
+type Characteristic struct {
+    Categories []Data `json:"categories,omitempty"`
+    Mechanisms []Data `json:"mechanisms,omitempty"`
+}
+
+type BoardGame struct {
+	Name           string         `json:"name"`
+	Description    string         `json:"description"`
+	YearReleased   int            `json:"yearReleased"`
+	NoPlayers      Range          `json:"noPlayers"`
+	PlayTime       Range          `json:"playTime"`
+	MinAge         int            `json:"age"`
+	Characteristic Characteristic `json:"characteristic"`
+}
+```
+
+Our BoardGame struct looks like this, we can use the Characteristics fields to compare board games, using the categories and mechanisms fields.
+
+
+## Collaborative Filtering
 
 Collaborative filtering is a method of recommending items to users based on the actions and preferences of other users. This is in contrast to other methods of recommendation, such as content-based filtering, which use the characteristics of the items themselves to make recommendations.
 
