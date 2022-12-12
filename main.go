@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/1fxe/board-game-recommender-system/recommenders"
 	"github.com/1fxe/board-game-recommender-system/shared"
+	"github.com/joho/godotenv"
 	"log"
 	"math/rand"
 	"os"
@@ -11,8 +12,19 @@ import (
 )
 
 func main() {
-	rand.Seed(time.Now().UnixNano())
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	db := shared.Database{}
 	// TODO Database connection
+	db.Connect(os.Getenv("POSTGRES_CONNECTION_URL"))
+	db.CreateBoardGameTable()
+	db.CreateCharacteristicTable()
+	db.Close()
+
+	rand.Seed(time.Now().UnixNano())
 	file, err := os.ReadFile("data/test_game_data.json")
 	if err != nil {
 		log.Panicln("Error reading file", err)
