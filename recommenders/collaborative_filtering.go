@@ -54,7 +54,9 @@ func (recommender *CollaborativeRecommender) RecommendBoardGames(userID int) []s
 		for gameID, rating := range otherUser.Ratings {
 			// If the User has not previously rated this game, and the other user rated it highly, recommend it
 			if user.Ratings[gameID] == 0 && rating > 3 {
-				// TODO ignore duplicate recommendations
+				if gameAlreadyAdded(recommender, gameID) {
+					continue
+				}
 				recommendations = append(recommendations, shared.Recommendation{
 					BoardGame: recommender.BoardGames[gameID],
 					Score:     similarities[id],
@@ -113,4 +115,13 @@ func sortRecommendations(recommendations []shared.Recommendation) {
 	sort.Slice(recommendations, func(i, j int) bool {
 		return recommendations[i].Score > recommendations[j].Score
 	})
+}
+
+func gameAlreadyAdded(recommender *CollaborativeRecommender, gameID int) bool {
+	for _, game := range recommender.BoardGames {
+		if game.ID == gameID {
+			return true
+		}
+	}
+	return false
 }
